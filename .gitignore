@@ -1,0 +1,39 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Python environment
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# PyCharm project files
+.idea/
+*.iml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# CSV files if you don't want to track changes
+*.csv
+
+# Logs
+*.log
+
+# Coverage reports
+coverage.xml
+*.cover
+*.py,cover
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Operating system files
+.DS_Store
+Thumbs.db
