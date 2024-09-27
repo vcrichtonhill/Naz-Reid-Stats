@@ -2,6 +2,9 @@
 
 This project analyzes the performance statistics of Naz Reid during the 2023-2024 NBA season. It includes data visualization for regular season games, playoff games, and in-season tournaments, showcasing key stats like points, rebounds, and assists per game.
 
+## Webpage
+https://vcrichtonhill.github.io/Naz-Reid-Stats/
+
 ## Table of Contents
 - [Features](#features)
 - [Technologies Used](#technologies-used)
