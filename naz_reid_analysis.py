@@ -78,10 +78,15 @@ for game_type in player_data['Game Type'].unique():
         zorder=1
     )
 
-# Highlight the game with a star marker
-star_game_number = 85  # Update this to the game number where he won the award
+# Highlight the 6th man game with a star marker
+star_game_number = 85
 star_stat_value = player_data[selected_stat_column].iloc[star_game_number - 1]  # Adjust for 0-indexing
 ax.scatter(star_game_number, star_stat_value, color='gold', s=100, marker='*', label='Sixth Man Award Game', zorder=2)
+
+# Highlight the towel giveaway game with a diamond marker
+diamond_game_number = 70
+diamond_stat_value = player_data[selected_stat_column].iloc[diamond_game_number - 1]  # Adjust for 0-indexing
+ax.scatter(diamond_game_number, diamond_stat_value, color='#c0dfd3', s=100, marker='d', label='Towel Giveaway Game', zorder=2, edgecolor='#0C2340')
 
 # Average stat line
 ax.axhline(y=average_stat, color='red', linestyle='--', label=f'Average {selected_display_stat}')
