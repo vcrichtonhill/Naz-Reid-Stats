@@ -22,6 +22,9 @@ player_data = pd.concat([player_data_regular, player_data_playoff], ignore_index
 # Streamlit app title
 st.title('Naz Reid 23-24 Season Stats')
 
+# Add a link to the source of your stats
+st.markdown('[Stats sourced from Basketball Reference](basketball-reference.com)')
+
 # Mapping display names to actual column names
 stat_map = {
     'Points per Game': 'PTS',
