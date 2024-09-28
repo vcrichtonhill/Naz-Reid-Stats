@@ -54,7 +54,7 @@ palette = {
 
 
 # Set up the plot
-fig, ax = plt.subplots(figsize=(12, 6))
+fig, ax = plt.subplots(figsize=(16, 8))
 
 # Set background color for the figure and axes
 fig.patch.set_facecolor('#f0f0f0')  # figure background
