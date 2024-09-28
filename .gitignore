@@ -18,9 +18,6 @@ venv.bak/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
-# CSV files if you don't want to track changes
-*.csv
-
 # Logs
 *.log
 
