@@ -37,24 +37,7 @@ all_player_data.dropna(subset=['PTS', 'FG%', 'AST', 'TRB'], inplace=True)
 X = all_player_data[['PTS', 'FG%', 'AST', 'TRB']]
 y = all_player_data['PTS']
 
-# Split the data into training and test sets
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
-
-# Train the model
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-# Predict on the test set
-y_pred = model.predict(X_test)
-
-# Evaluate the model
-mse = mean_squared_error(y_test, y_pred)
-rmse = mse ** 0.5
-print(f"RMSE: {rmse}")
 
 
 # Load your regular season data
@@ -157,6 +140,28 @@ ax.legend()
 ax.text(len(player_data['G']) + 8, average_stat - 1, f'{average_stat:.2f}',
         color='red', fontsize=12, verticalalignment='bottom', horizontalalignment='right')
 
+# Show plot in Streamlit
+st.pyplot(fig)
+
+# Split the data into training and test sets
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Train the model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict on the test set
+y_pred = model.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+rmse = mse ** 0.5
+print(f"RMSE: {rmse}")
+
 # Predict PPG for a new season based on previous season stats
 new_season_data = pd.DataFrame({
     'PTS': [19.99],  # Example data for a player
@@ -181,6 +186,5 @@ st.pyplot(plt)  # Display the plot in Streamlit
 st.write(f"Predicted PPG for the next season: {predicted_ppg}")
 
 
-# Show plot in Streamlit
-st.pyplot(fig)
+
 
