@@ -4,6 +4,7 @@ import seaborn as sns
 import streamlit as st
 import glob
 import altair as alt
+alt.renderers.enable('default')
 
 # Use glob to find all CSV files in a directory
 path = './statsheets/'
