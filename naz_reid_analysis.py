@@ -57,7 +57,7 @@ stat_map = {
     'Rebounds per Game': 'TRB',
     'Assists per Game': 'AST',
     '3-Point Attempts': '3PA',
-    '3-Points Made': '3P'
+    '3-Points Made': '3P',
 }
 
 # Display the stat options in the dropdown
@@ -136,6 +136,9 @@ st.pyplot(fig)
 
 # Further analysis: Plot of PPG vs MP
 
+
+
+# PPG and MP scatter
 chart = (alt.Chart(all_player_data).mark_circle(interpolate='basis').encode(
     x = alt.X('MP', title='Minutes Played'),
     y =alt.Y('PTS', title = 'Points Per Game')
