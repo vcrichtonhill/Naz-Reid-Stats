@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 import glob
-import numpy as np
-
+import altair as alt
 
 # Use glob to find all CSV files in a directory
 path = './statsheets/'
@@ -33,13 +32,6 @@ all_player_data['TRB'] = pd.to_numeric(all_player_data['TRB'], errors='coerce')
 # Drop any rows with NaN values
 all_player_data.dropna(subset=['PTS', 'FG%', 'AST', 'TRB'], inplace=True)
 
-# Separate features and target variable
-X = all_player_data[['PTS', 'FG%', 'AST', 'TRB']]
-y = all_player_data['PTS']
-
-
-
-
 # Load your regular season data
 player_data_regular = pd.read_csv('statsheets/naz_raid_23_24.csv')
 
@@ -57,7 +49,7 @@ player_data = pd.concat([player_data_regular, player_data_playoff], ignore_index
 st.title('Naz Reid 23-24 Season Stats')
 
 # Add a link to the source of your stats
-st.markdown('[Stats sourced from Basketball Reference](basketball-reference.com)')
+st.markdown('[Stats sourced from Basketball Reference](https://www.basketball-reference.com)')
 
 # Mapping display names to actual column names
 stat_map = {
@@ -84,7 +76,6 @@ player_data.fillna(0, inplace=True)
 palette = {
     'Regular Season': '#0C2340',
     'Playoffs': '#78BE20',  # You can further differentiate playoff rounds
-    # 'In-Season Tournament': 'green',  # Uncomment if you have this data
 }
 
 # Set up the plot
@@ -143,39 +134,23 @@ ax.text(len(player_data['G']) + 8, average_stat - 1, f'{average_stat:.2f}',
 # Show plot in Streamlit
 st.pyplot(fig)
 
-# Split the data into training and test sets
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Further analysis: Plot of PPG vs MP
 
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
+chart = (alt.Chart(all_player_data).mark_circle(interpolate='basis').encode(
+    x = alt.X('MP', title='Minutes Played'),
+    y =alt.Y('PTS', title = 'Points Per Game')
+).properties(
+    width=600,
+    height=400
+).interactive())
 
-# Train the model
-model = LinearRegression()
-model.fit(X_train, y_train)
+st.altair_chart(chart, use_container_width=True)
 
-# Predict on the test set
-y_pred = model.predict(X_test)
 
-# Evaluate the model
-mse = mean_squared_error(y_test, y_pred)
-rmse = mse ** 0.5
-print(f"RMSE: {rmse}")
-
-# Predict PPG for a new season based on previous season stats
-new_season_data = pd.DataFrame({
-    'PTS': [19.99],  # Example data for a player
-    'FG%': [0.45],
-    'AST': [5],
-    'TRB': [8]
-})
-
-# display the result
-predicted_ppg_array = model.predict(new_season_data)
-predicted_ppg = round(float(predicted_ppg_array[0]), 2)  # Round it to two decimal places
-
+# Predictions
+predicted_ppg = 19.99
 current_ppg = 13.06
-# Create your plot
+# Create prediction plot
 plt.figure(figsize=(10, 5))
 plt.bar(['Current PPG', 'Predicted PPG'], [current_ppg, predicted_ppg])
 plt.ylabel('Points Per Game')
@@ -183,8 +158,4 @@ plt.title('Current vs. Predicted PPG')
 st.pyplot(plt)  # Display the plot in Streamlit
 
 # Display the rounded prediction beneath the plot
-st.write(f"Predicted PPG for the next season: {predicted_ppg}")
-
-
-
-
+st.write(f"My predicted PPG for the next season: {predicted_ppg}")
