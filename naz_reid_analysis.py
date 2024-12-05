@@ -140,15 +140,26 @@ st.pyplot(fig)
 
 
 # PPG and MP scatter
-chart = (alt.Chart(all_player_data).mark_circle(interpolate='basis').encode(
+chart = (alt.Chart(player_data_regular).mark_circle(interpolate='basis').encode(
     x = alt.X('MP', title='Minutes Played'),
-    y =alt.Y('PTS', title = 'Points Per Game')
+    y =alt.Y('PTS', title = 'Points per game')
 ).properties(
     width=600,
     height=400
 ).interactive())
 
 st.altair_chart(chart, use_container_width=True)
+
+# FG% vs MP
+fg_chart = (alt.Chart(player_data_regular).mark_circle(interpolate='basis').encode(
+    x = alt.X('MP', title='Minutes Played'),
+    y =alt.Y('FG%', title = 'Field Goal Percentage')
+).properties(
+    width=600,
+    height=400
+).interactive())
+
+st.altair_chart(fg_chart, use_container_width=True)
 
 
 # Predictions
