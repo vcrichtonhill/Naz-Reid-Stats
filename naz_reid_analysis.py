@@ -1,4 +1,5 @@
 import pandas as pd
+import math
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
@@ -138,29 +139,16 @@ st.pyplot(fig)
 # Further analysis: Plot of PPG vs MP
 
 
-
 # PPG and MP scatter
 chart = (alt.Chart(player_data_regular).mark_circle(interpolate='basis').encode(
     x = alt.X('MP', title='Minutes Played'),
-    y =alt.Y('PTS', title = 'Points per game')
+    y =alt.Y(selected_stat_column, title = selected_stat_column)
 ).properties(
     width=600,
     height=400
 ).interactive())
 
 st.altair_chart(chart, use_container_width=True)
-
-# FG% vs MP
-fg_chart = (alt.Chart(player_data_regular).mark_circle(interpolate='basis').encode(
-    x = alt.X('MP', title='Minutes Played'),
-    y =alt.Y('FG%', title = 'Field Goal Percentage')
-).properties(
-    width=600,
-    height=400
-).interactive())
-
-st.altair_chart(fg_chart, use_container_width=True)
-
 
 # Predictions
 predicted_ppg = 19.99
